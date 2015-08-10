@@ -103,11 +103,11 @@ function fadeInText(divL,textL,color){
 	svgL.append("text").text(textL)
 	
 	var $el = $(divL+":first"), textL = $el.text(),
-	    words = textL.split(". ");
+	    words = textL.split(".");
 	var html = "";
 	console.log(html)
 	for (var i = 0; i < words.length; i++) {
-	    html += "<span style=\"color:"+color+"\">" + words[i] + ". </span>";
+	    html += "<span style=\"color:"+color+"\">" + words[i] + ".</span>";
 	};
 	$el.html(html).children().hide().each(function(i){
 	  $(this).delay(i*500).fadeIn(800);
