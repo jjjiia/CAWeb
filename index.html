@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+body{
+	font-family:helvetica;
+	font-size:20px;
+}
+#left{
+	width:30%;
+	padding:10px;
+	position:float-right;
+	left:5%;
+	min-width:400px;
+	
+}
+#right{
+	width:30%;
+	padding:10px;
+	right:5%;
+	min-width:400px;
+}
+#switch{
+	
+}
+</style>
+<script src="d3.v3.min.js"></script>
+<script src="jquery.min.js"></script>
+<div id = "left"></div>
+<div id = "right"></div>
+
+<script>
+
+
+function getRandomArbitrary(min, max) {
+    return Math.random() * (max - min) + min;
+}
+//generate random number
+
+function getSentence(){
+	var maxFile = 211
+	var fileNumber = Math.floor(getRandomArbitrary(0,maxFile))
+	console.log(fileNumber)
+	//get random line
+	var maxLine = 4000
+	var lineNumber = Math.floor(getRandomArbitrary(0,maxLine))
+	var rightLine = lineNumber+1
+	var originalStart = lineNumber
+	console.log(lineNumber)
+	var file = "tweets_split/tweets_"+ fileNumber+".json"
+
+	
+//	var rightsvg = d3.select("#right").append("svg").attr("width",400).attr("height",600)
+	
+
+	d3.json(file, function(data) {
+		
+		d3.selectAll("svg").remove()
+		setInterval(function() {
+		d3.select("#left").html("")
+		d3.select("#right").html("")
+		var textL = data["row_"+lineNumber]
+		var textR = data["row_"+rightLine]
+		drawSentence(textL,textR)	
+		
+		lineNumber +=2
+		rightLine+=2
+		console.log(lineNumber%maxLine)
+		
+		}, 8000);
+		
+	});	
+}
+
+
+
+function drawSentence(textL,textR){
+	//console.log(textR)
+	//var leftsvg = d3.select("#left").html(textL)
+	var colors = ["#B5D89B","#66E52C","#56922D","#53CF79","#5F8452","#BBD66D","#97D93D","#4DD64F","#63CB93","#91E177"]
+	var leftColor = colors[textL.length%colors.length]
+	var rightColor = colors[(textL.length+1)%colors.length]
+	
+	fadeInText("#left",textL,leftColor)
+	
+	var leftLength = textL.split(". ").length
+	
+	
+	setTimeout(function () {fadeInText("#right",textR,rightColor)}, leftLength*500);
+	//var rightsvg = d3.select("#right").append("svg")
+	//rightsvg.append("text").text(textR)
+//	setTimeout( fadeInText("#right",textR),10000);
+	
+}
+
+function fadeInText(divL,textL,color){
+	var svgL = d3.select(divL).append("svg")
+	svgL.append("text").text(textL)
+	
+	var $el = $(divL+":first"), textL = $el.text(),
+	    words = textL.split(". ");
+	var html = "";
+	console.log(html)
+	for (var i = 0; i < words.length; i++) {
+	    html += "<span style=\"color:"+color+"\">" + words[i] + " </span>";
+	};
+	$el.html(html).children().hide().each(function(i){
+	  $(this).delay(i*500).fadeIn(800);
+	});
+	
+}
+
+getSentence()
+
+</script>
