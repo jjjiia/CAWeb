@@ -85,6 +85,7 @@ function drawSentence(textL,textR){
 }
 
 function fadeInText(divL,textL,color){
+	var colors = ["#B5D89B","#66E52C","#56922D","#53CF79","#5F8452","#BBD66D","#97D93D","#4DD64F","#63CB93","#91E177"]
 	var svgL = d3.select(divL).append("svg")
 	svgL.append("text").text(textL)
 	
@@ -93,7 +94,7 @@ function fadeInText(divL,textL,color){
 	var html = "";
 	console.log(html)
 	for (var i = 0; i < words.length; i++) {
-	    html += "<span style=\"color:"+color+"\">" + words[i] + " </span>";
+	    html += "<span style=\"color:"+colors[i%colors.length]+"\">" + words[i] + ". </span>";
 	};
 	$el.html(html).children().hide().each(function(i){
 	  $(this).delay(i*600).fadeIn(500);
