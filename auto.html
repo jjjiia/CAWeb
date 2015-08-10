@@ -46,7 +46,11 @@ function getSentence(){
 	var originalStart = lineNumber
 	console.log(lineNumber)
 	var file = "tweets_split/tweets_"+ fileNumber+".json"
-
+	var textL = data["row_"+lineNumber]
+	var textR = data["row_"+rightLine]
+	drawSentence(textL,textR)	
+	lineNumber+=2
+	rightLine+=2
 	
 //	var rightsvg = d3.select("#right").append("svg").attr("width",400).attr("height",600)
 	
@@ -65,7 +69,7 @@ function getSentence(){
 		rightLine+=2
 		console.log(lineNumber%maxLine)
 		
-		}, 10000);
+		}, 8000);
 		
 	});	
 }
