@@ -46,11 +46,7 @@ function getSentence(){
 	var originalStart = lineNumber
 	console.log(lineNumber)
 	var file = "tweets_split/tweets_"+ fileNumber+".json"
-	var textL = data["row_"+lineNumber]
-	var textR = data["row_"+rightLine]
-	drawSentence(textL,textR)	
-	lineNumber+=2
-	rightLine+=2
+	
 	
 //	var rightsvg = d3.select("#right").append("svg").attr("width",400).attr("height",600)
 	
@@ -58,6 +54,13 @@ function getSentence(){
 	d3.json(file, function(data) {
 		
 		d3.selectAll("svg").remove()
+		
+	var textL = data["row_"+lineNumber]
+	var textR = data["row_"+rightLine]
+	drawSentence(textL,textR)	
+	lineNumber+=2
+	rightLine+=2
+		
 		setInterval(function() {
 		d3.select("#left").html("")
 		d3.select("#right").html("")
@@ -67,7 +70,7 @@ function getSentence(){
 		
 		lineNumber +=2
 		rightLine+=2
-		console.log(lineNumber%maxLine)
+		//console.log(lineNumber%maxLine)
 		
 		}, 8000);
 		
@@ -79,7 +82,7 @@ function getSentence(){
 function drawSentence(textL,textR){
 	//console.log(textR)
 	//var leftsvg = d3.select("#left").html(textL)
-	var colors = ["#B5D89B","#66E52C","#56922D","#53CF79","#5F8452","#BBD66D","#97D93D","#4DD64F","#63CB93","#91E177"]
+	var colors = ["#B5D89B","#66E52C","#56922D","#53CF79","#5F8452","#BBD66D","#97D93D","#4DD64F","#63CB93","#91E177","#aaa","#bbb","#000","#ccc","#222","#555"]
 	var leftColor = colors[textL.length%colors.length]
 	var rightColor = colors[(textL.length+1)%colors.length]
 	
@@ -104,7 +107,7 @@ function fadeInText(divL,textL,color){
 	var html = "";
 	console.log(html)
 	for (var i = 0; i < words.length; i++) {
-	    html += "<span style=\"color:"+color+"\">" + words[i] + " </span>";
+	    html += "<span style=\"color:"+color+"\">" + words[i] + ". </span>";
 	};
 	$el.html(html).children().hide().each(function(i){
 	  $(this).delay(i*500).fadeIn(800);
